@@ -10,6 +10,11 @@
 ### Написать service, который будет раз в 30 секунд мониторить лог на предмет наличия ключевого слова (файл лога и ключевое слово должны задаваться в /etc/default).
 
 ```
+# будем мониторить лог /var/log/auth
+# ключевое слово будет "Failed password"
+
+ tail -f /var/log/auth.log | grep --line-buffered "Failed" >> monitoring.txt
+
 
 ```
 

@@ -18,17 +18,14 @@
 logpath="/var/log/auth.log"
 keyword="Failed password"
 
+#скрипт при запуске будет использовать параметры из файла /etc/default/parametry.env
+№скрипт будет с помощью команды tail заглядывать в файл /var/log/auth.log
+# текст скрипта:
+#! /bin/bash/
+№импорт переменных из файла /etc/default/parametry.env
+source /etc/default/parametry.env
+tail -f $logpath | grep --line-buffered $keyword >> monitoring.txt
 
-
- tail -f /var/log/auth.log | grep --line-buffered "Failed" >> monitoring.txt
-
-
-```
-
-
-### Установить spawn-fcgi и создать unit-файл (spawn-fcgi.sevice) с помощью переделки init-скрипта (https://gist.github.com/cea2k/1318020).
-
-```
 
 ```
 

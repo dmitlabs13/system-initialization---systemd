@@ -19,12 +19,20 @@ logpath="/var/log/auth.log"
 keyword="Failed password"
 
 #скрипт при запуске будет использовать параметры из файла /etc/default/parametry.env
-№скрипт будет с помощью команды tail заглядывать в файл /var/log/auth.log
+#скрипт будет с помощью команды tail заглядывать в файл /var/log/auth.log
 # текст скрипта:
 #! /bin/bash/
-№импорт переменных из файла /etc/default/parametry.env
+#импорт переменных из файла /etc/default/parametry.env
 source /etc/default/parametry.env
-tail -f $logpath | grep --line-buffered $keyword >> monitoring.txt
+#команда мониторинга, берет логи за последние 30 секунд и если есть слова "Failed password" записывает строку в #файл monitoring.txt
+tail $logpath |awk '$0 > strftime("%Y-%m-%d %H:%M:%S", systime()-30)'| grep --line-buffered "$keyword" >> monitoring.txt
+exit 0
+
+#создаем файл юнита
+cat > /etc/systemd/system/monitoring_log.service
+
+
+
 
 
 ```
